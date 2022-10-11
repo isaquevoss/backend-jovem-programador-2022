@@ -7,7 +7,16 @@ server.get('/', function (request , response) {
     response.send('bem vindo a minha primeira aplicação nodejs')
 })
 server.post('/', function (request , response) {
-    response.send('post')
+    response.status(401).send('request no metodo post')
+})
+server.put('/', function (request , response) {
+    response.send('request no metodo put')
+})
+server.patch('/', function (request , response) {
+    response.send('request no metodo patch')
+})
+server.delete('/', function (request , response) {
+    response.send('request no metodo delete')
 })
 
 server.listen(3000, function () {
