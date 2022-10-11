@@ -1,0 +1,18 @@
+Abrir a pasta geral do projeto no vs code
+abrir um terminal caso não estiver aberto
+navegar até a pasta de trabalho pelo terminal ex: cd nome_da_pasta
+
+criar um arquivo para a aplicação
+sugestões de nome do arquivo da aplicação nodejs
+server.js
+main.js
+index.js
+app.js
+
+npm init (pressionar enter até concluir o processo)
+npm install express
+npm install body-parser
+
+
+
+

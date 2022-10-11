@@ -1,0 +1,28 @@
+<html>
+
+<body>
+    <ul id="lista">
+
+    </ul>
+    <script>
+        function getAlunos() {
+
+            const lista = document.getElementById('lista');
+            fetch('http://localhost:3000/alunos')
+                .then(response => response.json())
+                .then(json => {
+                    json.forEach(element => {
+                        const node = document.createElement("li");
+                        const textnode = document.createTextNode(element.name);
+                        node.appendChild(textnode);
+                        lista.append(node);
+                    })
+
+                })
+        }
+
+        getAlunos();
+    </script>
+</body>
+
+</html>
