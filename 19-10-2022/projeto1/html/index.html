@@ -1,0 +1,31 @@
+<html>
+
+<body>
+    <input type="text" id="nome">
+    <input type="number" id="preco">
+    <input type="text" id="loja">
+
+    <button onclick="cadastrarProduto()">Cadastrar</button>
+
+    <script>
+        function cadastrarProduto() {
+            const produto = {
+                nome: document.getElementById('nome').value,
+                preco: document.getElementById('preco').value,
+                loja: document.getElementById('loja').value
+            }
+            fetch('http://localhost:3000/produtos', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: JSON.stringify(produto)
+            }).then(() => {
+                console.log('produto cadastrado');
+            })
+        }
+    </script>
+</body>
+
+</html>
