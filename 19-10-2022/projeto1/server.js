@@ -4,16 +4,15 @@ const cors = require('cors')
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
-app.get('/', (req, res) => {
-    res.send('hello world')
-})
+
+app.get('',)
 
 const produtos = [];
 
 app.post('/produtos', (req, res) => {
     const produto = req.body;
     produtos.push(produto)
-    res.send('produto cadastrado')
+    res.json('produto cadastrado')
 })
 
 app.get('/produtos', (req, res) => {
