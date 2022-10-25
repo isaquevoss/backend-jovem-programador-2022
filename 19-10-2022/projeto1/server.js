@@ -2,10 +2,15 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const app = express();
+const path = require('path')
 app.use(cors());
 app.use(bodyParser.json());
 
-app.get('',)
+
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'html/index.html'))
+});
 
 const produtos = [];
 
@@ -22,7 +27,7 @@ app.get('/produtos', (req, res) => {
 app.get('/produtos/comparar/:nome', (req, res) => {
     var produtosComparados = produtos.filter(item => {
         return item.nome == req.params.nome
-    })    
+    })
     res.json(produtosComparados);
 })
 
