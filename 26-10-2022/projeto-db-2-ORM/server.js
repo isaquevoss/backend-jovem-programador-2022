@@ -11,17 +11,16 @@ const sequelize = new Sequelize({
 });
 
 const Produto = sequelize.define('produto', {
-    // Model attributes are defined here
     nome: {
-      type: DataTypes.STRING,
-      allowNull: false
+      type: DataTypes.STRING(50),
+      allowNull: false,         
     },
     preco: {
       type: DataTypes.FLOAT
-      // allowNull defaults to true
     }
   }, {
-    // Other model options go here
+    timestamps: true,
+    paranoid: true
   });
 
   app.post('/produtos', async (req, res) => {
@@ -31,6 +30,19 @@ const Produto = sequelize.define('produto', {
     })
     res.json(produto);
   });
+  app.delete('/produtos/:id',async( req, res ) => {
+    await Produto.destroy({
+      where: {
+        id: req.params.id
+      }
+    });
+    res.send('deletado')
+  })
+
+  app.get('/produtos', async (req,res) => {
+    const produtos = await Produto.findAll();
+    res.json(produtos);
+  })
 
   app.put('/produtos/:id', async (req, res) => {
     const produto = await Produto.findByPk(req.params.id);
