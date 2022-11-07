@@ -16,3 +16,11 @@ npm install body-parser
 
 
 
+//criar 2 campos a mais no Model produto
+//criar um model chamado cliente implementar cadastro e
+busca (post e get)
+
+//criar um model chamado usuario implmentar cadastro e busca
+
+caso baixarem o código do github rodem npm install para instalar
+as dependencias.
