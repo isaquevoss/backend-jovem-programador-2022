@@ -14,8 +14,6 @@ npm install express
 npm install body-parser
 
 
-
-
 //criar 2 campos a mais no Model produto
 //criar um model chamado cliente implementar cadastro e
 busca (post e get)
@@ -24,3 +22,9 @@ busca (post e get)
 
 caso baixarem o código do github rodem npm install para instalar
 as dependencias.
+
+
+****Orientações para quando baixar projeto existente
+
+Assim que baixar o projeto é necessário rodar o comando npm install
+esse comando irá baixar e instalar todas as dependencias do seu projeto.
