@@ -1,7 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+
 const { Sequelize, DataTypes } = require('sequelize');
+
+const jwt = require('jsonwebtoken');
+const senhaSecreta = '123456789asdf';
 
 const sequelize = new Sequelize({
   dialect: 'sqlite',
@@ -9,6 +13,7 @@ const sequelize = new Sequelize({
 });
 
 const app = express();
+app.use(cors());
 
 const User = sequelize.define('user', {
   name: {
@@ -56,45 +61,34 @@ app.post('/login', async (req, res) => {
     res.status(401).json({ message: 'falha no login' });
   }
   if (user.password === req.body.password) {
-    const token = Buffer.from(JSON.stringify(user)).toString('base64');
-    res.json({
-      accessToken: token,
-    });
+    const token = jwt.sign(
+      {
+        user,
+      },
+      senhaSecreta,
+      {
+        expiresIn: 3600,
+      }
+    );
+    res.json({ token });
   } else {
     res.status(401).json({ message: 'falha no login' });
   }
 });
 
 app.use(async (req, res, next) => {
-  console.log(req.headers.authorization);
-  console.log('-----------------------------');
-  if (!req.headers.authorization) {
-    res.status(401).json({ message: 'usuário não autenticado' });
-    return;
-  }
-  const userAuth = JSON.parse(
-    Buffer.from(req.headers.authorization, 'base64').toString()
-  );
-  const user = await User.findOne({
-    where: {
-      email: userAuth.email,
-      password: userAuth.password,
-      id: userAuth.id,
-    },
-  });
-  if (user) {
+  try {
+    const token = req.headers.authorization;
+    jwt.verify(token, senhaSecreta);
     next();
-  } else {
-    res.status(401).json({
-      message: 'usuário não está logado',
-    });
+  } catch (error) {
+    res.status(401).json({ message: error.message });
   }
 });
+//antes de tudo rodar npm install jsonwebtoken
 
 app.post('/posts', async (req, res) => {
-  const userAuth = JSON.parse(
-    Buffer.from(req.headers.authorization, 'base64').toString()
-  );
+  const userAuth = jwt.decode(req.headers.authorization).user;
   const post = new Post();
   post.message = req.body.message;
   post.userId = userAuth.id;
