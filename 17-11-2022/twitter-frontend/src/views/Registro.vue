@@ -10,18 +10,30 @@
             label="Senha"
             v-model="usuario.senha"
           ></v-text-field>
-          <v-btn>Cadastrar</v-btn>
+          <v-btn @click="gravar">Cadastrar</v-btn>
         </v-card-text>
       </v-card>
     </v-col>
   </v-row>
 </template>
 <script>
+import axios from 'axios';
 export default {
   data() {
     return {
       usuario: {},
     };
+  },
+  methods: {
+    async gravar() {
+      const resposta = await axios.post('http://localhost:3000/users', {
+        name: this.usuario.nome,
+        email: this.usuario.email,
+        password: this.usuario.senha,
+      });
+      console.log(resposta.data);
+      this.$router.push('/login');
+    },
   },
 };
 </script>

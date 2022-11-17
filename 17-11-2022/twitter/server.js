@@ -97,7 +97,9 @@ app.post('/posts', async (req, res) => {
 });
 
 app.get('/posts', async (req, res) => {
-  const posts = await Post.findAll();
+  const posts = await Post.findAll({
+    order: [['createdAt', 'DESC']],
+  });
   res.json(posts);
 });
 
